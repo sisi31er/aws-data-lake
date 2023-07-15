@@ -1,0 +1,87 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'CloudFormation template for creating multiple RDS instances'
+
+Parameters:
+  Subnet1:
+    Default: 'subnet-0b031d4f4ee7454ba'
+    Type: String
+  Subnet2:
+    Default: 'subnet-014f11cd6afcfb70b'
+    Type: String
+  MyVPCSecurityGroup:
+    Default: 'sg-00dcfcc75404a88e5'
+    Type: String
+
+Resources:
+  DBSubnetGroup:
+    Type: 'AWS::RDS::DBSubnetGroup'
+    Properties:
+      DBSubnetGroupDescription: 'Subnet group for RDS instances'
+      SubnetIds:
+        - !Ref Subnet1
+        - !Ref Subnet2
+
+  DBInstance1:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      DBInstanceIdentifier: 'mydbinstance1'
+      DBInstanceClass: 'db.t2.micro'
+      Engine: 'mysql'
+      EngineVersion: '5.7'
+      MasterUsername: 'admin'
+      MasterUserPassword: 'mypassword'
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      VPCSecurityGroups:
+        - !Ref MyVPCSecurityGroup
+      AllocatedStorage: 5
+      MultiAZ: false
+      PubliclyAccessible: true
+      StorageType: gp2
+      StorageEncrypted: false
+      EnableIAMDatabaseAuthentication: false
+      EnablePerformanceInsights: false
+      DeletionProtection: false
+
+  DBInstance2:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      DBInstanceIdentifier: 'mydbinstance2'
+      DBInstanceClass: 'db.t2.micro'
+      Engine: 'mysql'
+      EngineVersion: '5.7'
+      MasterUsername: 'admin'
+      MasterUserPassword: 'mypassword'
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      VPCSecurityGroups:
+        - !Ref MyVPCSecurityGroup
+      AllocatedStorage: 5
+      MultiAZ: false
+      PubliclyAccessible: true
+      StorageType: gp2
+      StorageEncrypted: false
+      EnableIAMDatabaseAuthentication: false
+      EnablePerformanceInsights: false
+      DeletionProtection: false
+
+  DBInstance3:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      DBInstanceIdentifier: 'mydbinstance3'
+      DBInstanceClass: 'db.t3.micro'
+      Engine: 'postgres'
+      EngineVersion: '14.5'
+      MasterUsername: 'masteruser'
+      MasterUserPassword: 'mypassword'
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      VPCSecurityGroups:
+        - !Ref MyVPCSecurityGroup
+      AllocatedStorage: 5
+      MultiAZ: false
+      PubliclyAccessible: true
+      StorageType: gp2
+      StorageEncrypted: false
+      EnableIAMDatabaseAuthentication: false
+      EnablePerformanceInsights: false
+      DeletionProtection: false
+

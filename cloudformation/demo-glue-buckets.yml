@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+  Generator: former2
+Description: Stack for 'Building Data Lakes on AWS' Video Demonstration 2023
+Resources:
+  S3BucketDataLake:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Sub 'data-lake-demo-test-glue-${AWS::AccountId}-${AWS::Region}'
+  S3BucketGlueAssets:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Sub 'aws-glue-assets-${AWS::AccountId}-${AWS::Region}'

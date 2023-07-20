@@ -29,7 +29,7 @@ DropFields_node1635274815618 = DropFields.apply(
 
 # Script generated for node S3 bucket
 S3bucket_node3 = glueContext.getSink(
-    path="s3://open-data-lake-demo-us-east-1/tickit/silver/listing/",
+    path="s3://open-data-lake-demo-eu-central-1/tickit/silver/listing/",
     connection_type="s3",
     updateBehavior="UPDATE_IN_DATABASE",
     partitionKeys=[],

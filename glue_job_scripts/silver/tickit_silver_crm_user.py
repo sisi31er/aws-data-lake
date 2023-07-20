@@ -16,13 +16,13 @@ job.init(args["JOB_NAME"], args)
 # Script generated for node Data Catalog table
 DataCatalogtable_node1 = glueContext.create_dynamic_frame.from_catalog(
     database="data_lake_demo",
-    table_name="bronze_tickit_crm_user",
+    table_name="bronze_crm_user",
     transformation_ctx="DataCatalogtable_node1",
 )
 
 # Script generated for node S3 bucket
 S3bucket_node3 = glueContext.getSink(
-    path="s3://open-data-lake-demo-us-east-1/tickit/silver/user/",
+    path="s3://open-data-lake-demo-eu-central-1/tickit/silver/user/",
     connection_type="s3",
     updateBehavior="UPDATE_IN_DATABASE",
     partitionKeys=[],
@@ -31,7 +31,7 @@ S3bucket_node3 = glueContext.getSink(
     transformation_ctx="S3bucket_node3",
 )
 S3bucket_node3.setCatalogInfo(
-    catalogDatabase="data_lake_demo", catalogTableName="silver_tickit_crm_user"
+    catalogDatabase="data_lake_demo", catalogTableName="silver_crm_user"
 )
 S3bucket_node3.setFormat("glueparquet")
 S3bucket_node3.writeFrame(DataCatalogtable_node1)

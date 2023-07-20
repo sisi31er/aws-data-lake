@@ -17,6 +17,7 @@ Resources:
   DBSubnetGroup:
     Type: 'AWS::RDS::DBSubnetGroup'
     Properties:
+      DBSubnetGroupName: 'subnet-for-all-databases-eu-central-1'
       DBSubnetGroupDescription: 'Subnet group for RDS instances'
       SubnetIds:
         - !Ref Subnet1
@@ -70,7 +71,7 @@ Resources:
       DBInstanceIdentifier: 'mydbinstance3'
       DBInstanceClass: 'db.t3.micro'
       Engine: 'postgres'
-      EngineVersion: '14.5'
+      EngineVersion: '13.10'
       MasterUsername: 'masteruser'
       MasterUserPassword: 'mypassword'
       DBSubnetGroupName: !Ref DBSubnetGroup

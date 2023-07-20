@@ -10,13 +10,13 @@ Parameters:
     Default: 'sg-00dcfcc75404a88e5'
     Type: String
   JdbcConnectionUrlMSSQL:
-    Default: 'jdbc:mysql://'
+    Default: 'jdbc:mysql://mydbinstance2.c2yecud4ozdu.eu-central-1.rds.amazonaws.com:3306'
     Type: String
   JdbcConnectionUrlMySQL:
-    Default: 'jdbc:mysql://'
+    Default: 'jdbc:mysql://mydbinstance1.c2yecud4ozdu.eu-central-1.rds.amazonaws.com:3306'
     Type: String
   JdbcConnectionUrlPostgreSQL:
-    Default: 'jdbc:postgresql://'
+    Default: 'jdbc:postgresql://mydbinstance3.c2yecud4ozdu.eu-central-1.rds.amazonaws.com:5432/tickit'
     Type: String
 Resources:
   GlueConnectionMSSQL:
@@ -30,7 +30,7 @@ Resources:
             - !Ref MySecurityGroupId
           AvailabilityZone: eu-central-1a
         ConnectionProperties:
-          JDBC_CONNECTION_URL: !Ref JdbcConnectionUrlMySQL
+          JDBC_CONNECTION_URL: !Ref JdbcConnectionUrlMSSQL
           JDBC_ENFORCE_SSL: 'false'
           PASSWORD: mypassword
           USERNAME: admin
@@ -241,13 +241,13 @@ Resources:
           s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/
       Connections:
         Connections:
-          - tickit_postgresql_connection
+          - tickit_mysql_connection
       MaxRetries: 0
       Timeout: 2880
       GlueVersion: '4.0'
       NumberOfWorkers: 10
       WorkerType: G.1X
-    DependsOn: GlueConnectionPostgreSQL
+    DependsOn: GlueConnectionMySQL
   GlueJobSilverEvent:
     Type: 'AWS::Glue::Job'
     Properties:
@@ -371,7 +371,7 @@ Resources:
       GlueVersion: '4.0'
       NumberOfWorkers: 10
       WorkerType: G.1X
-    DependsOn: GlueConnectionMSSQL
+    DependsOn: GlueConnectionMySQL
   GlueJobSilverSale:
     Type: 'AWS::Glue::Job'
     Properties:
@@ -427,13 +427,13 @@ Resources:
           s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/
       Connections:
         Connections:
-          - tickit_mssql_connection
+          - tickit_mysql_connection
       MaxRetries: 0
       Timeout: 2880
       GlueVersion: '4.0'
       NumberOfWorkers: 10
       WorkerType: G.1X
-    DependsOn: GlueConnectionMSSQL
+    DependsOn: GlueConnectionMySQL
   GlueJobSilverUser:
     Type: 'AWS::Glue::Job'
     Properties:
@@ -463,7 +463,7 @@ Resources:
       GlueVersion: '4.0'
       NumberOfWorkers: 10
       WorkerType: G.1X
-  GlueJobUserJob:
+  GlueJobBronzeUser:
     Type: 'AWS::Glue::Job'
     Properties:
       Name: tickit_bronze_crm_user
@@ -489,13 +489,13 @@ Resources:
           s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/
       Connections:
         Connections:
-          - tickit_postgresql_connection
+          - tickit_mssql_connection
       MaxRetries: 0
       Timeout: 2880
       GlueVersion: '4.0'
       NumberOfWorkers: 10
       WorkerType: G.1X
-    DependsOn: GlueConnectionPostgreSQL
+    DependsOn: GlueConnectionMSSQL
   GlueJobSilverVenue:
     Type: 'AWS::Glue::Job'
     Properties:

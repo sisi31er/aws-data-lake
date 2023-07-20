@@ -65,7 +65,7 @@ SelectFromCollection_node1636853203313 = SelectFromCollection.apply(
 
 # Script generated for node S3 bucket
 S3bucket_node3 = glueContext.getSink(
-    path="s3://open-data-lake-demo-us-east-1/tickit/silver/date/",
+    path="s3://open-data-lake-demo-eu-central-1/tickit/silver/date/",
     connection_type="s3",
     updateBehavior="UPDATE_IN_DATABASE",
     partitionKeys=[],

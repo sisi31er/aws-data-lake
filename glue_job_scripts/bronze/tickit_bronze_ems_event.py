@@ -22,7 +22,7 @@ DataCatalogtable_node1 = glueContext.create_dynamic_frame.from_catalog(
 
 # Script generated for node S3 bucket
 S3bucket_node3 = glueContext.getSink(
-    path="s3://open-data-lake-demo-us-east-1/tickit/bronze/event/",
+    path="s3://open-data-lake-demo-eu-central-1/tickit/bronze/event/",
     connection_type="s3",
     updateBehavior="UPDATE_IN_DATABASE",
     partitionKeys=[],

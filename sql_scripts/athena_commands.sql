@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS gold_sales_by_category
 WITH (
     format = 'Parquet',
     write_compression = 'SNAPPY',
-    external_location = 's3://open-data-lake-demo-us-east-1/tickit/gold/gold_sales_by_category/',
+    external_location = 's3://open-data-lake-demo-eu-central-1/tickit/gold/gold_sales_by_category/',
     partitioned_by = ARRAY [ 'catgroup',
     'catname' ],
     bucketed_by = ARRAY [ 'bucket_catname' ],
@@ -43,8 +43,8 @@ SELECT cast(d.caldate AS DATE) AS caldate,
     c.catname
 FROM silver_ecomm_sale AS s
     LEFT JOIN silver_ecomm_listing AS l ON l.listid = s.listid
-    LEFT JOIN silver_tickit_crm_user AS u1 ON u1.userid = s.sellerid
-    LEFT JOIN silver_tickit_crm_user AS u2 ON u2.userid = s.buyerid
+    LEFT JOIN silver_crm_user AS u1 ON u1.userid = s.sellerid
+    LEFT JOIN silver_crm_user AS u2 ON u2.userid = s.buyerid
     LEFT JOIN silver_tickit_ems_event AS e ON e.eventid = s.eventid
     LEFT JOIN silver_ecomm_date AS d ON d.dateid = s.dateid
     LEFT JOIN cat AS c ON c.eventid = s.eventid;
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS gold_sales_by_date
 WITH (
     format = 'Parquet',
     write_compression = 'SNAPPY',
-    external_location = 's3://open-data-lake-demo-us-east-1/tickit/gold/gold_sales_by_date/',
+    external_location = 's3://open-data-lake-demo-eu-central-1/tickit/gold/gold_sales_by_date/',
     partitioned_by = ARRAY [ 'year', 'month'],
     bucketed_by = ARRAY [ 'bucket_month' ],
     bucket_count = 1
@@ -82,8 +82,8 @@ SELECT cast(d.caldate AS DATE) AS caldate,
     d.month_int as month
 FROM silver_ecomm_sale AS s
     LEFT JOIN silver_ecomm_listing AS l ON l.listid = s.listid
-    LEFT JOIN silver_tickit_crm_user AS u1 ON u1.userid = s.sellerid
-    LEFT JOIN silver_tickit_crm_user AS u2 ON u2.userid = s.buyerid
+    LEFT JOIN silver_crm_user AS u1 ON u1.userid = s.sellerid
+    LEFT JOIN silver_crm_user AS u2 ON u2.userid = s.buyerid
     LEFT JOIN silver_tickit_ems_event AS e ON e.eventid = s.eventid
     LEFT JOIN silver_ecomm_date AS d ON d.dateid = s.dateid
     LEFT JOIN cat AS c ON c.eventid = s.eventid;

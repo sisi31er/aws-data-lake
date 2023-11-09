@@ -8,8 +8,26 @@
 
 
 
+Create the databases
+
+1. Step 
+Create the databases locally and create a .sql backup file
+mysqldump -u root -p myinstance1 -r ~/Desktop/replica.sql
+
+2. Step
+Open the dump.sql file in Notepad++ and hit CTRL+H to find and replace the string “utf8mb4_0900_ai_ci” and replaced it with “utf8mb4_general_ci“.
+
+3. Step 
+Upload the backup file then to the aws database 
 mysql -u admin -p -h mydbinstance1.c2yecud4ozdu.eu-central-1.rds.amazonaws.com ecomm < dump.sql
 
-Opened the dump.sql file in Notepad++ and hit CTRL+H to find and replace the string “utf8mb4_0900_ai_ci” and replaced it with “utf8mb4_general_ci“.
+(with postgres you can parse the data directly from the csv files because is faster then mysql and mssql)
 
-mysqldump -u root -p myinstance1 -r ~/Desktop/replica.sql
+aws cloudformation deploy --stack-name data-lake-demo-glue-all --template-file ./cloudformation/demo-glue.yml --capabilities CAPABILITY_NAMED_IAM
+
+
+tabellen in korrektem format in korrekt bezeichnete tabelle laden
+aws databases anpassen (auch gut um nochmal alle Schritte durchzugehen)
+WECHSELN ZU JAVA 8 oder nicht?? --> vielleicht mal Versuch
+Spark connections zu allen Databases aufbauen
+spark jobs ausführen lassen? fehlt dafür noch was??
